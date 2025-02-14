@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hati Tergigit</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8d7da;
+            overflow: hidden;
+            text-align: center;
+        }
+        .heart-container {
+            position: relative;
+            width: 60vmin;
+            height: 60vmin;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .heart {
+            width: 50vmin;
+            height: 50vmin;
+            background: linear-gradient(45deg, #6b3e26, #8c5b3f, #4e2a1b);
+            position: relative;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            border-radius: 15%;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2), inset 5px 5px 10px rgba(255, 255, 255, 0.1);
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 50vmin;
+            height: 50vmin;
+            background: linear-gradient(45deg, #6b3e26, #8c5b3f, #4e2a1b);
+            border-radius: 50%;
+            position: absolute;
+        }
+        .heart::before {
+            top: -25vmin;
+            left: 0;
+        }
+        .heart::after {
+            top: 0;
+            left: 25vmin;
+        }
+        .bite {
+            position: absolute;
+            background-color: #f8d7da;
+            border-radius: 50%;
+        }
+        .hidden {
+            display: none;
+        }
+        .message-container {
+            text-align: center;
+        }
+        .message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #5d3f3e;
+        }
+        .sub-message {
+            font-size: 1.2rem;
+            color: #a55251;
+            margin-top: 10px;
+        }
+        .restart-btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: rgb(68, 25, 25);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container">
+        <div class="heart" id="heart"></div>
+    </div>
+    <div class="message-container hidden" id="message-container">
+        <div id="message" class="message">HAPPY VALENTINE DAY SHAVE CANTIK !!</div>
+        <div id="sub-message" class="sub-message">Semangat anak keren, kalo masih sibuk ato banyak tugas tetep jaga kesehatan ya, banyak minum, istirahat jangan lupaa, ntar kecapean jadi manusia keren + cakep kamuu. SEMANGAT POKOKNYA EUY</div>
+        <div id="ps-message" class="sub-message">(ps: aku nyoba bikin warna hatinya jadi kayak warna coklat makanan gitu loh, biar kek aku ngasih kamu coklat, trus aku coba bikin efek pas ditekannya tuh kayak lagi gigit coklatnya, tapi keknya gagal yak WKWK ADUH sorry yaa aku bikin ini 5 menit mendadak)</div>
+    </div>
+    <button id="restart" class="restart-btn hidden" onclick="restartGame()">Klik Ini Kalo Mau Ulang Hatinyaa</button>
+    <script>
+        let bites = 0;
+        function biteHeart() {
+            if (bites >= 7) {
+                document.getElementById("heart").style.display = "none";
+                document.getElementById("message-container").classList.remove("hidden");
+                document.getElementById("restart").classList.remove("hidden");
+                return;
+            }
+            const heart = document.getElementById("heart");
+            const bite = document.createElement("div");
+            bite.classList.add("bite");
+            let size = (15 * Math.min(window.innerWidth, window.innerHeight)) / 100;
+            let positions = [
+                { top: "5vmin", left: "20vmin" },
+                { top: "15vmin", left: "15vmin" },
+                { top: "25vmin", left: "10vmin" },
+                { top: "35vmin", left: "5vmin" },
+                { top: "45vmin", left: "10vmin" },
+                { top: "55vmin", left: "20vmin" },
+                { top: "65vmin", left: "30vmin" }
+            ];
+            let pos = positions[bites];
+            bite.style.width = `${size}px`; // Perbaikan di sini
+            bite.style.height = `${size}px`; // Perbaikan di sini
+            bite.style.top = pos.top;
+            bite.style.left = pos.left;
+            heart.appendChild(bite);
+            bites++;
+        }
+        
+        function restartGame() {
+            bites = 0;
+            document.getElementById("heart").style.display = "block";
+            document.getElementById("heart").innerHTML = "";
+            document.getElementById("message-container").classList.add("hidden");
+            document.getElementById("restart").classList.add("hidden");
+        }
+        
+        document.getElementById("heart").addEventListener("click", biteHeart);
+    </script>
+</body>
+</html>
